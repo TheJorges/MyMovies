@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from datetime import datetime
 
 
 class Genre(models.Model):
@@ -20,7 +20,7 @@ class Job(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=128)
-    birth_date = models.DateTimeField()
+    birth_date = models.DateTimeField(default=datetime(2000, 1, 1))
     bio = models.TextField(default='Text')
     gender = models.CharField(max_length=11,default='F/M')
     character_name = models.CharField(max_length=128, default='Ex')

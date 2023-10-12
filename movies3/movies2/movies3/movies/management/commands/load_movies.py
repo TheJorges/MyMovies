@@ -24,7 +24,7 @@ class Command(BaseCommand):
                    release_date=datetime(23, 9, 28, tzinfo=timezone.utc),
                    running_time=134,
                    budget=80_000_000,
-                   tmdb_id=670292,
+                   tmdb_id=670293,
                    revenue=0,
                    poster_path='')
         m1.save()
