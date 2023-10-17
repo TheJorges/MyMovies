@@ -1,14 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>{{movie.title}}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="{% static 'movies/assets/css/style.css' %}" rel="stylesheet">
     </head>
     <body>
         <h1> {{ movie.title }} ({{ movie.release_date|date:"Y" }}) </h1>   
         <p> {{ movie.overview }} </p>
-        <p> {{ movie.actors }} </p>
+        <img src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="">
     </body>
 </html>

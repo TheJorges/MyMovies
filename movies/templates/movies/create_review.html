@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{movie.title}}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+    <h1>Escribir una reseña para {{ movie.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="rating">Calificación:</label>
+    <input type="number" name="rating" min="1" max="100" required>
+    <br>
+    <label for="review_text">Reseña:</label>
+    <textarea name="review_text" required></textarea>
+    <br>
+    <button type="submit">Enviar reseña</button>
+</form>
+</body>
+</html>
