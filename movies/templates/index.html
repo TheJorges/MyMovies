@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,6 +6,8 @@
     <ul>
     {% for movie in movies %}
         <li><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a></li>
+            <li><a href="{% static 'movie_detail' movie.id %}">{{ movie.genres }}</a></li>
+         <img src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="">
     {% endfor %}
     </ul>
         <meta charset="UTF-8">

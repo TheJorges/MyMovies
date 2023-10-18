@@ -32,7 +32,7 @@ SECRET_KEY = env('SECRETKEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['172.31.58.94','webhost41.ddns.net','tippysaurio.optiaware.com','localhost:8000','localhost']
+ALLOWED_HOSTS = ['172.31.58.94','webhost41.ddns.net','tippysaurio.optiaware.com','localhost:8000','localhost','thegamermaster5.optiaware.com','127.0.0.1']
 
 
 # Application definition

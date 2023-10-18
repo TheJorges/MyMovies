@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Movie, MovieReview
+from .models import Movie, MovieReview, Genre, Person, MovieCredit, Job
 
 def index(request):
     movies = Movie.objects.all()
@@ -7,8 +7,9 @@ def index(request):
 
 def movie_detail(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
+    credits = MovieCredit.objects.filter(movie=movie)
     reviews = MovieReview.objects.filter(movie=movie)
-    return render(request, 'movie_detail.html', {'movie': movie, 'reviews': reviews})
+    return render(request, 'movie_detail.html', {'movie':movie,'credits':credits,'reviews':reviews})
 
 def create_review(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
