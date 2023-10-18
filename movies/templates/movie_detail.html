@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{movie.title}}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="{% static 'movies/assets/css/'}" rel="stylesheet">
+    </head>
+    <body>
+        <h1>{{ movie.title }}</h1>
+        <img src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="">
+        <p>Descripción: {{ movie.overview }}</p>
+        <p>Fecha de lanzamiento: {{ movie.release_date }}</p>
+        <p>Duración: {{ movie.running_time }} minutos</p>
+        
+        <h2>Créditos:</h2>
+        <ul>
+            {% for credit in movie.moviecredit_set.all %}
+                <li>{{ credit.person.name }} - {{ credit.job.name }}</li>
+            {% endfor %}
+        </ul>
+        
+        <h2>Reseñas:</h2>
+        <ul>
+            {% for review in reviews %}
+                <li>{{ review.user.username }} - {{ review.rating }} - {{ review.review }}</li>
+            {% endfor %}
+        </ul>
+        
+        <a>Escribir una reseña</a>
+    </body>
+</html>

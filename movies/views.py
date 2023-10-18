@@ -1,19 +1,46 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from movies.models import Movie
-# Create your views here.
-
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Movie, MovieReview
 
 def index(request):
     movies = Movie.objects.all()
-    context = {'movie_list': movies}
-    return render(request, "movies/index.html", context=context)
-
+    return render(request, 'index.html', {'movies': movies})
 
 def movie_detail(request, movie_id):
-    movie = Movie.objects.get(pk=movie_id)
-    context = {'movie': movie}
-    return render(request, "movies/movie_detail.html", context=context)
+    movie = get_object_or_404(Movie, pk=movie_id)
+    reviews = MovieReview.objects.filter(movie=movie)
+    return render(request, 'movie_detail.html', {'movie': movie, 'reviews': reviews})
+
+def create_review(request, movie_id):
+    movie = get_object_or_404(Movie, pk=movie_id)
+
+    if request.method == 'POST':
+        rating = request.POST.get('rating')
+        review_text = request.POST.get('review_text')
+
+        # Create an anonymous user (or a guest user) for the review
+        user = None  # You can customize this as needed
+
+        review = MovieReview(movie=movie, user=user, rating=rating, review=review_text)
+        review.save()
+
+        return redirect('movie_detail', movie_id=movie_id)
+    return render(request, 'create_review.html', {'movie': movie})
+
+#from django.shortcuts import render
+#from movies.models import Movie
+# Create your views here.
+
+
+#def index(request):
+#    movies = Movie.objects.all()
+#    context = {'movie_list': movies}
+#    return render(request, "movies/index.html", context=context)
+
+
+#def movie_detail(request, movie_id):
+#    movie = Movie.objects.get(pk=movie_id)
+#    context = {'movie': movie}
+#    return render(request, "movies/movie_detail.html", context=context)
 #
 #from django.shortcuts import render, get_object_or_404, redirect
 #from django.http import HttpResponse
