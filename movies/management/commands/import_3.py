@@ -44,7 +44,7 @@ class Command(BaseCommand):
         j = Job.objects.get(name='Actor')
         for actor_info in actor_data:
             a ,created = Person.objects.get_or_create(name=actor_info['name'])
-            MovieCredit.objects.create(person=a, movie=movie, job=j)
+            MovieCredit.objects.create(person=a, movie=movie, job=j, character_name=actor_info['character'])
 
         if created:
             self.stdout.write(self.style.SUCCESS(f'Movie "{movie.title}" created'))
