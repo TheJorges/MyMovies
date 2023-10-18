@@ -20,10 +20,9 @@ class Job(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=128)
-    birth_date = models.DateTimeField(default=datetime(2000, 1, 1))
+    birth_date = models.DateTimeField(default=datetime(2000, 1, 1, 0, 0, 0))
     bio = models.TextField(default='Text')
     gender = models.CharField(max_length=11,default='F/M')
-    character_name = models.CharField(max_length=128, default='Ex')
     image_path = models.URLField(blank=True)
     
     def __str__(self):
@@ -51,6 +50,7 @@ class MovieCredit(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    character_name = models.CharField(max_length=128, default='NA')
 
 
 class MovieReview(models.Model):
@@ -60,4 +60,4 @@ class MovieReview(models.Model):
                                                           MaxValueValidator(100)])
     review = models.TextField(blank=True)
 
-# Create your models here.
+
