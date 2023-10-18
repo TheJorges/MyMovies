@@ -42,7 +42,7 @@ class Command(BaseCommand):
 
         j = Job.objects.get(name='Actor')
         for actor_info in actor_data[:8]:
-            a ,created = Person.objects.get_or_create(name=actor_info['name'])
+            a ,created = Person.objects.get_or_create(name=actor_info['name'], image_path=actor_info['profile_path'])
             MovieCredit.objects.create(person=a, movie=movie, job=j, character_name=actor_info['character'])
 
         genres = [Genre.objects.get_or_create(name=name)[0] for name in genre_names]

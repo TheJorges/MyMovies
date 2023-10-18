@@ -24,9 +24,5 @@ print(r.json())
 
 
 r = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/credits?language=en-US', headers=headers) 
-credits = r.json()
-for actor in credits['cast'][:10]:
-    print(actor['id'], actor['name'], actor['order'], actor['known_for_department'])
+print(r.json())
 
-for job in credits['crew'][:15]:
-    print(job['name'], job['department'], job['job'])
