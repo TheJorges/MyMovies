@@ -20,7 +20,7 @@ env = environ.Env(
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+print(BASE_DIR)
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
@@ -32,8 +32,8 @@ SECRET_KEY = env('SECRETKEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['172.31.58.94','webhost41.ddns.net','tippysaurio.optiaware.com','localhost:8000','localhost','thegamermaster5.optiaware.com','127.0.0.1']
 
+ALLOWED_HOSTS = ['172.31.58.94','webhost41.ddns.net','tippysaurio.optiaware.com','localhost:8000','localhost','thegamermaster5.optiaware.com','skyguard.optiaware.com','127.0.0.1']
 
 # Application definition
 

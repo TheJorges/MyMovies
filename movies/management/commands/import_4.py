@@ -7,6 +7,7 @@ import os
 import environ
 import requests
 
+BASE_POSTER_URL = "https://www.themoviedb.org/t/p/w600_and_h900_bestv2"
 class Command(BaseCommand):
     help = 'Import details of a specific movie from TheMovieDatabase'
 
@@ -28,7 +29,13 @@ class Command(BaseCommand):
         actor_data = movie_data['credits']['cast']
 
         genre_names = [genre['name'] for genre in movie_data['genres']]
-        
+        posterp = movie_data['poster_path']
+        if movie_data['poster_path']:
+            poster_url = f"{BASE_POSTER_URL}{posterp}"
+            poster_filename = f'/home/ubuntu/projects/MyMovies/movies/static/movies/assets/img/{posterp}'
+            os.system(f'wget {poster_url} -O {poster_filename}')
+         
+            
         movie, created = Movie.objects.get_or_create(
             title=movie_data['title'],
             overview=movie_data['overview'],
