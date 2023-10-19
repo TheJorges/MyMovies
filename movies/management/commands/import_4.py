@@ -32,7 +32,7 @@ class Command(BaseCommand):
         posterp = movie_data['poster_path']
         if movie_data['poster_path']:
             poster_url = f"{BASE_POSTER_URL}{posterp}"
-            poster_filename = f'/home/ubuntu/projects/MyMovies/movies/static/movies/assets/img/{posterp}'
+            poster_filename = f'/home/ubuntu/MyMovies-1/movies/static/movies/assets/img{posterp}'
             os.system(f'wget {poster_url} -O {poster_filename}')
          
             

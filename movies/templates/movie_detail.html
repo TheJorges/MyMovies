@@ -10,16 +10,20 @@
     </head>
     <body>
         <h1>{{ movie.title }}</h1>
-        <p>Generos: {{ movie.genres }}</p>
+        <p>Generos: </p>
+        {% for genre in genres %}
+            <li>{{ genre.name }}</li>
+        {% endfor %}
         <img src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="">
         <p>Descripción: {{ movie.overview }}</p>
         <p>Fecha de lanzamiento:{{ movie.release_date }}</p>
         <p>Duración: {{ movie.running_time }} minutos</p>
-        
+        <p>Recaudación: $ {{movie.revenue}} </p>
+        <p>Presupuesto: $ {{movie.budget}} </p>
         <h2>Créditos:</h2>
         <ul>
             {% for credit in credits %}
-            <li><a>{{ credit.person }}</a></li>
+            <li><a>{{ credit.person }} - {{credit.job}}</a></li>
             {% endfor %}
         </ul>
         
@@ -30,6 +34,6 @@
             {% endfor %}
         </ul>
         
-        <a>Escribir una reseña</a>
+        <a href="{% url 'create_review' movie.id %}">Escribir una reseña</a>
     </body>
 </html>
