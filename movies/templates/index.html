@@ -2,17 +2,29 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <h1>Lista de Películas</h1>
-    <ul>
-    {% for movie in movies %}
-        <li><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a></li>
-            <li><a href="{% static 'movie_detail' movie.id %}">{{ movie.genres }}</a></li>
-         <img src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="">
-    {% endfor %}
-    </ul>
+
+
         <meta charset="UTF-8">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="{% static 'movies/assets/css/output.css' %}" rel="stylesheet">
+      
+
     </head>
     <body>
+
+        <h1>Lista de Películas</h1>
+    <ul class="flex flex-wrap flex-row" style="display: flex; flex-wrap: wrap;">
+    {% for movie in movies %}
+        <!-- <li><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a></li>
+            <li><a href="{% static 'movie_detail' movie.id %}">{{ movie.genres }}</a></li>
+         <img src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt=""> -->
+         <li class="bg-white m-2 p-4 rounded-lg shadow-md" style="width: 250px;">
+            <a class="text-gray-700 text-center mt-2" href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a>
+            <a class = "text-gray-700 text-center mt-2" href="{% static 'movie_detail' movie.id %}">{{ movie.genres }}</a>
+            <img class="w-full h-auto" src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="">
+        </li>
+
+
+    {% endfor %}
+    </ul>
     </body>
 </html>
