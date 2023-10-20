@@ -11,8 +11,8 @@ def movie_detail(request, movie_id):
     credits = MovieCredit.objects.filter(movie=movie)
     reviews = MovieReview.objects.filter(movie=movie)
     genres = movie.genres.all()
-    return render(request, 'movie_detail.html', {'movie':movie,'credits':credits,'credits':credits,'reviews':reviews, 'genres':genres})
-
+    actors = Person.objects.filter(movie=movie)  # Obtén la lista de actores asociados a la película
+    return render(request, 'movie_detail.html', {'movie':movie,'credits':credits,'reviews':reviews, 'genres':genres,'actors':actors})
 
 def create_review(request, movie_id):
     
@@ -30,3 +30,9 @@ def create_review(request, movie_id):
 
         return redirect('movie_detail', movie_id=movie_id)
     return render(request, 'create_review.html', {'movie': movie})
+
+
+def person_detail(request,actor_id):
+    actor = get_object_or_404(Person, pk=actor_id)
+    biography = actor.bio
+    return render(request, 'person_detail.html', {'actor': actor, 'biography': biography})

@@ -22,9 +22,9 @@
     <!-- Navbar -->
     <nav class="bg-blue-500 p-4">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="javascript:history.back()" class="text-white text-2xl font-bold">Cinephile</a> <!-- Título de la página -->
+            <a href="{% url 'index' %}" class="text-white text-2xl font-bold">Cinephile</a> <!-- Título de la página -->
             <ul class="flex space-x-4">
-                <li><a href="javascript:history.back()" class="text-white">Inicio</a></li>
+                <li><a href="{% url 'index' %}" class="text-white">Inicio</a></li>
                 <li><a href="review" class="text-white">Reseñas</a></li>
             </ul>
         </div>
@@ -56,12 +56,22 @@
                 <p id="budget">{{ movie.budget }}</p>
             </div>
         </div>
-        <h2 class="text-2xl font-bold mt-6">Créditos:</h2>
-        <ul class="list-disc pl-4">
-            {% for credit in credits %}
-                <li><a href="#">{{ credit.person }} - {{ credit.job }}</a></li>
-            {% endfor %}
-        </ul>
+
+<h2 class="text-2xl font-bold mt-6">Créditos:</h2>
+<ul class="list-disc pl-4">
+    {% for credit in credits %}
+    <li class="flex items-center mb-4">
+        <a href="{% url 'person_detail' credit.person.id %}">
+        <img src="{% static 'movies/assets/img/'|add:credit.person.image_path %}" alt="{{ credit.person.name }}" class="w-12 h-12 mr-4 rounded-full">
+    <div>
+            <p  class="text-lg font-semibold"></p>
+            <a href="{% url 'person_detail' credit.person.id %}">{{ credit.person.name }}</a>
+        </a>        </p>
+            <p class="text-sm">{{ credit.job }}</p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
         <h2 class="text-2xl font-bold mt-6">Reseñas:</h2>
         <ul class="list-disc pl-4">
             {% for review in reviews %}
@@ -92,4 +102,3 @@
     </script>
 </body>
 </html>
-

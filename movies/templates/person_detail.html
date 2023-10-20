@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+       
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{% static 'movies/assets/css/' %}" rel="stylesheet">
+    </head>
+    <body> 
+        <img src="{% static 'movies/assets/img/'|add:actor.image_path %}" alt="{{ actor.name }}" class="">
+         <h1>{{ actor.name }}</h1>
+         <p>Fecha de nacimiento: {{ actor.birth_date }}</p>
+        <p>Biografía: {{ actor.bio }}</p>
+    </body>
+</html>
