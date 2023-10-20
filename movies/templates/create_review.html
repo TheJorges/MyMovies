@@ -8,6 +8,16 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-blue-500 p-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="{% url 'index' %}" class="text-white text-2xl font-bold">Cinephile</a> <!-- Título de la página -->
+            <ul class="flex space-x-4">
+                <li><a href="{% url 'index' %}" class="text-white">Inicio</a></li>
+                <li><a href="review" class="text-white">Reseñas</a></li>
+            </ul>
+        </div>
+    </nav>
     <div class="container mx-auto p-6">
         <h1 class="text-2xl font-bold mb-4">Escribir una reseña para {{ movie.title }}</h1>
         <form method="post">
