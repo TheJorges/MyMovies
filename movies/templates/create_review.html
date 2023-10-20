@@ -1,23 +1,24 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>{{movie.title}}</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
-    </head>
-    <body>
-    <h1>Escribir una reseña para {{ movie.title }}</h1>
-<form method="post">
-    {% csrf_token %}
-    <label for="rating">Calificación:</label>
-    <input type="number" name="rating" min="1" max="100" required>
-    <br>
-    <label for="review_text">Reseña:</label>
-    <textarea name="review_text" required></textarea>
-    <br>
-    <button type="submit">Enviar reseña</button>
-</form>
+<head>
+    <title>{{ movie.title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <h1 class="text-2xl font-bold mb-4">Escribir una reseña para {{ movie.title }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="rating" class="block mb-2">Calificación:</label>
+            <input type="number" name="rating" min="1" max="100" required class="w-full p-2 border rounded-md mb-4">
+            <label for="review_text" class="block mb-2">Reseña:</label>
+            <textarea name="review_text" required class="w-full p-2 border rounded-md mb-4"></textarea>
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Enviar reseña</button>
+        </form>
+    </div>
 </body>
 </html>
+

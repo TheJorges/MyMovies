@@ -1,39 +1,95 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>{{movie.title}}</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
-        <link href="{% static 'movies/assets/css/'}" rel="stylesheet">
-    </head>
-    <body>
-        <h1>{{ movie.title }}</h1>
-        <p>Generos: </p>
-        {% for genre in genres %}
-            <li>{{ genre.name }}</li>
-        {% endfor %}
-        <img src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="">
-        <p>Descripción: {{ movie.overview }}</p>
-        <p>Fecha de lanzamiento:{{ movie.release_date }}</p>
-        <p>Duración: {{ movie.running_time }} minutos</p>
-        <p>Recaudación: $ {{movie.revenue}} </p>
-        <p>Presupuesto: $ {{movie.budget}} </p>
-        <h2>Créditos:</h2>
-        <ul>
+<head>
+    <title>{{ movie.title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .background {
+            background: url("{% static 'movies/assets/img/'|add:movie.poster_path %}") center/cover fixed no-repeat;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="text-black">
+    <!-- Navbar -->
+    <nav class="bg-blue-500 p-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="javascript:history.back()" class="text-white text-2xl font-bold">Cinephile</a> <!-- Título de la página -->
+            <ul class="flex space-x-4">
+                <li><a href="javascript:history.back()" class="text-white">Inicio</a></li>
+                <li><a href="review" class="text-white">Reseñas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="background"></div>
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg relative z-10">
+       <h1 class="text-3xl font-bold text-center mb-6">{{ movie.title }}</h1>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <img src="{% static 'movies/assets/img/'|add:movie.poster_path %}" alt="{{ movie.title }}">
+            </div>
+            <div>
+                <p class="text-xl font-semibold">Géneros:</p>
+                <ul class="list-disc pl-4">
+                    {% for genre in genres %}
+                        <li>{{ genre.name }}</li>
+                    {% endfor %}
+                </ul>
+                <p class="text-xl font-semibold">Descripción:</p>
+                <p>{{ movie.overview }}</p>
+                <p class="text-xl font-semibold">Fecha de lanzamiento:</p>
+                <p>{{ movie.release_date }}</p>
+                <p class="text-xl font-semibold">Duración:</p>
+                <p>{{ movie.running_time }} minutos</p>
+                <p class="text-xl font-semibold">Recaudación:</p>
+                <p id="revenue">{{ movie.revenue }}</p>
+                <p class="text-xl font-semibold">Presupuesto:</p>
+                <p id="budget">{{ movie.budget }}</p>
+            </div>
+        </div>
+        <h2 class="text-2xl font-bold mt-6">Créditos:</h2>
+        <ul class="list-disc pl-4">
             {% for credit in credits %}
-            <li><a>{{ credit.person }} - {{credit.job}}</a></li>
+                <li><a href="#">{{ credit.person }} - {{ credit.job }}</a></li>
             {% endfor %}
-        </ul>
-        
-        <h2>Reseñas:</h2>
-        <ul>
+        </ul>
+        <h2 class="text-2xl font-bold mt-6">Reseñas:</h2>
+        <ul class="list-disc pl-4">
             {% for review in reviews %}
                 <li>{{ review.user.username }} - {{ review.rating }} - {{ review.review }}</li>
             {% endfor %}
         </ul>
+        <a href="{% url 'create_review' movie.id %}" class="mt-4 inline-block text-blue-500">Escribir una reseña</a>
+    </div>
+
+    <script>
+        // JavaScript para dar formato a los valores de presupuesto y recaudación y cambiar el color de recaudación
+        const revenueElement = document.getElementById("revenue");
+        const budgetElement = document.getElementById("budget");
         
-        <a href="{% url 'create_review' movie.id %}">Escribir una reseña</a>
-    </body>
+        const revenue = parseFloat(revenueElement.textContent);
+        const budget = parseFloat(budgetElement.textContent);
+        
+        // Formatear los valores como dinero
+        revenueElement.textContent = "$" + revenue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        budgetElement.textContent = "$" + budget.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        
+        // Cambiar el color de recaudación según si es mayor o menor que el presupuesto
+        if (revenue > budget) {
+            revenueElement.style.color = "green";
+        } else if (revenue < budget) {
+            revenueElement.style.color = "red";
+        }
+    </script>
+</body>
 </html>
+
