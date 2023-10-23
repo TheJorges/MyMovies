@@ -77,7 +77,7 @@ class Command(BaseCommand):
                     profile_filename = f'/home/ubuntu/Movies2/MyMovies/movies/static/movies/assets/img/{actor_details["profile_path"]}'
                     os.system(f'wget {profile_url} -O {profile_filename}')
                 
-                jobs_data = actor_details.get('known_for_department', '').split(',')
+                jobs_data = actor_detailsget('known_for_department', '').split(',')
                 for job_name in jobs_data:
                     job, _ = Job.objects.get_or_create(name=job_name.strip())
                     MovieCredit.objects.create(person=a, movie=movie, job=job, character_name=actor_info['character'])
