@@ -10,8 +10,6 @@ python3 manage.py import_4 713704
 python3 manage.py import_4 663
 python3 manage.py import_4 298250
 python3 manage.py import_4 138843
-python3 manage.py import_4 420634
-python3 manage.py import_4 663712
 python3 manage.py import_4 346364
 python3 manage.py import_4 474350
 python3 manage.py import_4 156022

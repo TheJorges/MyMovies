@@ -44,20 +44,20 @@
                         <li>{{ genre.name }}</li>
                     {% endfor %}
                 </ul>
-                <p class="text-xl font-semibold">Descripción:</p>
+                <p class="text-xl font-semibold">Description:</p>
                 <p>{{ movie.overview }}</p>
-                <p class="text-xl font-semibold">Fecha de lanzamiento:</p>
+                <p class="text-xl font-semibold">Release Date:</p>
                 <p>{{ movie.release_date }}</p>
-                <p class="text-xl font-semibold">Duración:</p>
+                <p class="text-xl font-semibold">Runtime:</p>
                 <p>{{ movie.running_time }} minutos</p>
-                <p class="text-xl font-semibold">Recaudación:</p>
+                <p class="text-xl font-semibold">Revenue:</p>
                 <p id="revenue">{{ movie.revenue }}</p>
-                <p class="text-xl font-semibold">Presupuesto:</p>
+                <p class="text-xl font-semibold">Budget:</p>
                 <p id="budget">{{ movie.budget }}</p>
             </div>
         </div>
 
-<h2 class="text-2xl font-bold mt-6">Créditos:</h2>
+<h2 class="text-2xl font-bold mt-6">Credits:</h2>
 <ul class="list-disc pl-4">
     {% for credit in credits %}
     <li class="flex items-center mb-4">
@@ -66,19 +66,19 @@
     <div>
             <p  class="text-lg font-semibold"></p>
             <a href="{% url 'person_detail' credit.person.id %}">{{ credit.person.name }}</a>
-        </a>        </p>
+            <p>{{credit.character_name}}</p>
             <p class="text-sm">{{ credit.job }}</p>
         </div>
     </li>
     {% endfor %}
 </ul>
-        <h2 class="text-2xl font-bold mt-6">Reseñas:</h2>
+        <h2 class="text-2xl font-bold mt-6">Reviews:</h2>
         <ul class="list-disc pl-4">
             {% for review in reviews %}
                 <li>{{ review.user.username }} - {{ review.rating }} - {{ review.review }}</li>
             {% endfor %}
         </ul>
-        <a href="{% url 'create_review' movie.id %}" class="mt-4 inline-block text-blue-500">Escribir una reseña</a>
+        <a href="{% url 'create_review' movie.id %}" class="mt-4 inline-block text-blue-500">Write a review</a>
     </div>
 
     <script>
