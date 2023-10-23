@@ -28,8 +28,17 @@ class Command(BaseCommand):
         response = requests.get(url, params=params)
         #Se recibe los datos de la pelicula en formato json, estos se asignaran a los campos correspondientes
         movie_data = response.json()
-        
-        #Se le asignan a la pelicula creada
+
+
+        actor_data = movie_data['credits']['cast']
+
+        genre_names = [genre['name'] for genre in movie_data['genres']]
+        posterp = movie_data['poster_path']
+        if movie_data['poster_path']:
+            poster_url = f"{BASE_POSTER_URL}{posterp}"
+            poster_filename = f'/home/ubuntu/projects/MyMovies/movies/static/movies/assets/img{posterp}'
+            os.system(f'wget {poster_url} -O {poster_filename}')
+         
         movie, created = Movie.objects.get_or_create(
             title=movie_data['title'],
             overview=movie_data['overview'],

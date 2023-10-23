@@ -20,9 +20,9 @@
 </head>
 <body class="bg-blue-900 text-black">
     <!-- Navbar -->
-    <nav class="bg-blue-500 p-4">
+    <nav class="bg-blue-900 p-4" style="display:block;width: 100%;">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="{% url 'index' %}" class="text-white text-2xl font-bold">Cinephile</a> <!-- Título de la página -->
+            <a href="{% url 'index' %}" class="text-white text-4xl font-bold">Cinephile</a> <!-- Título de la página -->
             <ul class="flex space-x-4">
                 <li><a href="{% url 'index' %}" class="text-white">Inicio</a></li>
                 <li><a href="review" class="text-white">Reseñas</a></li>
@@ -39,7 +39,7 @@
             </div>
             <div>
                 <p class="text-xl font-semibold">Géneros:</p>
-                <ul class="list-disc pl-4">
+                <!-- <ul class="list-disc pl-4">
                     {% for genre in genres %}
                         <li>{{ genre.name }}</li>
                     {% endfor %}
@@ -49,16 +49,29 @@
                 <p class="text-xl font-semibold">Release Date:</p>
                 <p>{{ movie.release_date }}</p>
                 <p class="text-xl font-semibold">Runtime:</p>
+                </ul> -->
+                <div class="flex flex-wrap mt-2 text-center" style="margin: 0 auto;">
+                    {% for genero in movie.genres.all %}
+                        <span class="bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2">{{ genero.name }}</span>
+                    {% endfor %}
+                </div>
+                <p class="text-xl  font-semibold">Descripción:</p>
+                <p class="text-justify">{{ movie.overview }}</p>
+                <p class="text-xl font-semibold r">Fecha de lanzamiento:</p>
+                <p>{{ movie.release_date }}</p>
+                <p class="text-xl font-semibold ">Duración:</p>
                 <p>{{ movie.running_time }} minutos</p>
                 <p class="text-xl font-semibold">Revenue:</p>
                 <p id="revenue">{{ movie.revenue }}</p>
+
                 <p class="text-xl font-semibold">Budget:</p>
-                <p id="budget">{{ movie.budget }}</p>
+                <p id="budget" >{{ movie.budget }}</p>
             </div>
         </div>
 
 <h2 class="text-2xl font-bold mt-6">Credits:</h2>
-<ul class="list-disc pl-4">
+<ul class="list-disc pl-4 justify-center">
+
     {% for credit in credits %}
     <li class="flex items-center mb-4">
         <a href="{% url 'person_detail' credit.person.id %}">
