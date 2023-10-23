@@ -12,8 +12,8 @@
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <a href="{% url 'index' %}" class="text-white text-2xl font-bold">Cinephile</a>
             <ul class="flex space-x-4">
-                <li><a href="{% url 'index' %}" class="text-white">Inicio</a></li>
-                <li><a href="review" class="text-white">Reseñas</a></li>
+                <li><a href="{% url 'index' %}" class="text-white">Home</a></li>
+                <li><a href="review" class="text-white">Reviews</a></li>
             </ul>
         </div>
     </nav>
@@ -22,6 +22,15 @@
         <h1 class="text-3xl font-bold text-center mt-4">{{ actor.name }}</h1>
         <p class="text-gray-600 text-center">Fecha de nacimiento: {{ actor.birth_date }}</p>
         <p class="text-gray-700  mt-4">{{ actor.bio }}</p>
+            <h2>Películas en las que ha participado:</h2>
+            <ul>
+                {% for movie_credit in movies_participated %}
+                    <li>
+                        <p>{{ movie_credit.movie.title }}</p>
+
+                    </li>
+                {% endfor %}
+            </ul>
     </div>
 </body>
 </html>

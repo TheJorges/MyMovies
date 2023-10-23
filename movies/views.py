@@ -34,5 +34,6 @@ def create_review(request, movie_id):
 
 def person_detail(request,actor_id):
     actor = get_object_or_404(Person, pk=actor_id)
+    movies_participated = MovieCredit.objects.filter(person=actor)
     biography = actor.bio
-    return render(request, 'person_detail.html', {'actor': actor, 'biography': biography})
+    return render(request, 'person_detail.html', {'actor': actor, 'biography': biography,'movies_participated': movies_participated})
