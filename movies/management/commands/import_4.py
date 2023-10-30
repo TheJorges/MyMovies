@@ -26,7 +26,7 @@ class Command(BaseCommand):
         params = {'api_key': api_key, 'append_to_response': 'credits'}
 
         response = requests.get(url, params=params)
-        #Se recibe los datos de la pelicula en formato json, estos se asignaran a los campos correspondientes
+        #Se recibe los datos de la pelicula en formato json, estyos se asignaran a los campos correspondientes
         movie_data = response.json()
 
 
@@ -36,7 +36,7 @@ class Command(BaseCommand):
         posterp = movie_data['poster_path']
         if movie_data['poster_path']:
             poster_url = f"{BASE_POSTER_URL}{posterp}"
-            poster_filename = f'/home/ubuntu/projects/MyMovies/movies/static/movies/assets/img{posterp}'
+            poster_filename = f'/home/skyguardp/Documents/development/escuela/MyMovies/movies/static/movies/assets/img{posterp}'
             os.system(f'wget {poster_url} -O {poster_filename}')
          
         movie, created = Movie.objects.get_or_create(
@@ -60,7 +60,7 @@ class Command(BaseCommand):
         posterp = movie_data['poster_path']
         if movie_data['poster_path']:
             poster_url = f"{BASE_POSTER_URL}{posterp}"
-            poster_filename = f'/home/ubuntu/Movies2/MyMovies/movies/static/movies/assets/img{posterp}'
+            poster_filename = f'/home/skyguardp/Documents/development/escuela/MyMovies/movies/static/movies/assets/img{posterp}'
             os.system(f'wget {poster_url} -O {poster_filename}')
 
         actor_data = movie_data['credits']['cast']
@@ -83,10 +83,10 @@ class Command(BaseCommand):
                 # Descarga el perfil del actor si está disponible
                 if actor_details['profile_path']:
                     profile_url = f"{BASE_POSTER_URL}{actor_details['profile_path']}"
-                    profile_filename = f'/home/ubuntu/Movies2/MyMovies/movies/static/movies/assets/img/{actor_details["profile_path"]}'
+                    profile_filename = f'/home/skyguardp/Documents/development/escuela/MyMovies/movies/static/movies/assets/img/{actor_details["profile_path"]}'
                     os.system(f'wget {profile_url} -O {profile_filename}')
                 
-                jobs_data = actor_detailsget('known_for_department', '').split(',')
+                jobs_data = actor_details['known_for_department'].split(',')
                 for job_name in jobs_data:
                     job, _ = Job.objects.get_or_create(name=job_name.strip())
                     MovieCredit.objects.create(person=a, movie=movie, job=job, character_name=actor_info['character'])

@@ -4,20 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-blue-800  text-white">
-    <!-- Navbar -->
-    <nav class="bg-blue-900 p-4" style="display:block;width: 100%;">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="{% url 'index' %}" class="text-white text-4xl font-bold">Cinephile</a> <!-- Título de la página -->
-            <ul class="flex space-x-4">
-                <li><a href="{% url 'index' %}" class="text-white">Inicio</a></li>
-                <li><a href="review" class="text-white">Reseñas</a></li>
-            </ul>
-        </div>
-    </nav>
-        <h1 class="text-4xl font-bold text-center mb-8 mt-8">Catálogo de películas</h1>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
+</head>
+<body class=" text-white" style="background-color:#182E6D;">
+    <!-- Navbar bg-blue-900-->
+    {% include "header.html" %}
+    <div style="max-width: 100vw;overflow-x: hidden">
+        <h1 class="text-3xl font-bold text-center mb-8 mt-8 " >Catálogo</h1>
+        {% if request.user.is_authenticated and recommendations != None %}
+            <h2 class="text-2xl font-bold text-left mb-2 mt-8 ml-4">Recomandaciones para tí</h2>
+
+
+        <div class="swiper-container p-4 ">
+            <div class="swiper-button-next" style="position: absolute;top: 520px;"></div>
+            <div class="swiper-button-prev" style="position: absolute;top: 520px"></div>
+            <div class="swiper-wrapper">
+                    {% for movie in recommendations %}
+                        <div class="swiper-slide">
+                            <div class="bg-white p-4 rounded-lg shadow-md">
+                                <a href="{% url 'movie_detail' movie.id %}">
+                                    <img class="w-full h-auto" src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="{{ movie.title }}">
+                                </a>
+                                <a class="text-black text-center mt-2 block" href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a>
+                                <div class="flex flex-wrap justify-center mt-2 text-center" style="margin: 0 auto;">
+                                    {% for genero in movie.genres.all %}
+                                        <span class="bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2">{{ genero.name }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
+
+        {% endif %}
+        <h2 class="text-2xl font-bold text-left mb-2 mt-8 ml-4">Catálogo completo</h2>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+  const mySwiper = new Swiper('.swiper-container', {
+    slidesPerView: 4,
+    spaceBetween: 14,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+</script>
+    </div>
     <div class="grid grid-cols-1 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {% for movie in movies %}
         <div class="bg-white p-4 rounded-lg shadow-md">
@@ -34,36 +69,7 @@
         {% endfor %}
     </div>
 </body>
-<!-- ======= -->
-    <!-- <head>
 
 
-        <meta charset="UTF-8">
-        <link href="{% static 'movies/assets/css/output.css' %}" rel="stylesheet">
-      
-
-    </head>
-    <body>
-
-        <h1>Lista de Películas</h1>
-    <ul class="flex flex-wrap flex-row" style="display: flex; flex-wrap: wrap;">
-    {% for movie in movies %} -->
-        <!-- <li><a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a></li>
-            <li><a href="{% static 'movie_detail' movie.id %}">{{ movie.genres }}</a></li>
-         <img src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt=""> -->
-         <!-- <li class="bg-white m-2 p-4 rounded-lg shadow-md" style="width: 250px;">
-            <a class="text-gray-700 text-center mt-2" href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a>
-            {% for genero in movie.genres.all %}
-            <p class = "text-gray-700 text-center mt-2" href="{% static 'movie_detail' movie.id %}">{{ genero.name }}</p>
-            {% endfor %}
-
-            <img class="w-full h-auto" src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="">
-        </li>
-
-
-    {% endfor %}
-    </ul>
-    </body>
->>>>>>> a449763 (Merge de versione) -->
 </html>
 

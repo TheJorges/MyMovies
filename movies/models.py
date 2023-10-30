@@ -60,4 +60,8 @@ class MovieReview(models.Model):
                                                           MaxValueValidator(100)])
     review = models.TextField(blank=True)
 
+class Recomendations(models.Model):
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete= models.CASCADE)
+
 

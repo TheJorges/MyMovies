@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python3 manage.py import_4 968051
+python3 manage.py import_4 968051 
 python3 manage.py import_4 176
 python3 manage.py import_4 934433
 python3 manage.py import_4 9552

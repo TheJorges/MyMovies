@@ -37,7 +37,9 @@ ALLOWED_HOSTS = ['172.31.58.94','webhost41.ddns.net','tippysaurio.optiaware.com'
 
 # Application definition
 
-INSTALLED_APPS = ['movies.apps.MoviesConfig',
+INSTALLED_APPS = [
+    'login.apps.LoginConfig',
+    'movies.apps.MoviesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +56,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 ROOT_URLCONF = 'mymovies.urls'

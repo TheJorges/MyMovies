@@ -1,0 +1,14 @@
+    <nav class=" p-4" style="display:block;width: 100%;border-bottom:1px solid #1F3B8B;background-color:#11224F;">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="{% url 'index' %}" class="text-white text-4xl font-bold">Cinephile</a> <!-- Título de la página -->
+            <ul class="flex space-x-4">
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}" class="text-white">Cerrar sesión</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="text-white">Iniciar sesión</a></li>
+                {% endif %}
+                <li><a href="{% url 'index' %}" class="text-white">Inicio</a></li>
+                <li><a href="review" class="text-white">Reseñas</a></li>
+            </ul>
+        </div>
+    </nav>
