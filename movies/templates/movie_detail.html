@@ -8,13 +8,28 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .background {
-            background: url("{% static 'movies/assets/img/'|add:movie.poster_path %}") center/cover fixed no-repeat;
-            position: absolute;
+
+            {#background: url("{% static 'movies/assets/img/'|add:movie.poster_path %}") center/cover fixed no-repeat;#}
+             background: url("{% static 'movies/assets/img/'|add:movie.poster_path %}") center/cover fixed no-repeat;
+
+
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             min-height: 100vh;
             z-index: -1;
+
+        }
+        .background-opacity{
+            position: fixed;
+            top: 0;
+
+            left: 0;
+            width: 100%;
+            min-height: 100vh;
+            z-index: -1;
+            background-color: rgba(0,0,0,0.5);
         }
     </style>
 </head>
@@ -23,6 +38,7 @@
     {% include "header.html" %}
 
     <div class="background"></div>
+    <div class="background-opacity"></div>
     <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg relative z-10">
        <h1 class="text-3xl font-bold text-center mb-6">{{ movie.title }}</h1>
         <div class="grid grid-cols-2 gap-4">
@@ -66,14 +82,15 @@
 
     {% for credit in credits %}
     <li class="flex items-center mb-4">
-        <a href="{% url 'person_detail' credit.person.id %}">
-        <img src="{% static 'movies/assets/img/'|add:credit.person.image_path %}" alt="{{ credit.person.name }}" class="w-12 h-12 mr-4 rounded-full">
-    <div>
+        <a href="{% url 'person_detail' credit.person.id %}"></a>
+        <img src="{% static 'movies/assets/img/'|add:credit.person.image_path %}" alt="{{ credit.person.name }}" class="w-12 h-12 mr-4 rounded-full"/>
+        <div>
             <p  class="text-lg font-semibold"></p>
             <a href="{% url 'person_detail' credit.person.id %}">{{ credit.person.name }}</a>
             <p>{{credit.character_name}}</p>
             <p class="text-sm">{{ credit.job }}</p>
         </div>
+
     </li>
     {% endfor %}
 </ul>
