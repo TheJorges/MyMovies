@@ -40,6 +40,7 @@ ALLOWED_HOSTS = ['172.31.58.94','webhost41.ddns.net','tippysaurio.optiaware.com'
 INSTALLED_APPS = [
     'login.apps.LoginConfig',
     'movies.apps.MoviesConfig',
+    'register.apps.RegisterConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

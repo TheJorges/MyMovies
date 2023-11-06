@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'movies/assets/img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'lib/cute-alert/style.css' %}">
+
+
 
 </head>
 <body class=" text-white" style="background-color:#182E6D;">
@@ -43,6 +46,7 @@
         <h2 class="text-2xl font-bold text-left mb-2 mt-8 ml-4">Catálogo completo</h2>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
+
   const mySwiper = new Swiper('.swiper-container', {
     slidesPerView: 4,
     spaceBetween: 14,
@@ -68,6 +72,10 @@
         </div>
         {% endfor %}
     </div>
+
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src='{% static 'lib/cute-alert/cute-alert.js' %}'> </script>
 </body>
 
 
