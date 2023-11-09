@@ -1,25 +1,73 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8">
-    <title>Cinephile - Register</title>
+    <title>Registro de Usuario - Cinephile</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{% static 'movies/assets/img/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'lib/cute-alert/style.css' %}">
 </head>
-<body>
+
+<body style="background-color: #182E6D;">
+
     {% include "header.html" %}
-        <h2 class="text-2xl">Registro de Usuario</h2>
-        <form method="post" class="mt-4">
+
+    <h2 class="mx-auto text-center mt-8 text-2xl text-white">Registro de usuario</h2>
+    <div class="mt-10 login-div w-96 flex-col justify-center mx-auto">
+
+        <form method="post" class="bg-yellow-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md mx-auto">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Registrarse</button>
-          {% if error %}
-          <p style="color: red;">{{ error }}</p>
-          {% endif %}
-          <script src='{% static 'lib/cute-alert/cute-alert.js' %}'> </script>
+
+            <div class="mb-4">
+                <label for="id_username" class="block text-black">Usuario:</label>
+                <input class="h-8 rounded-md text-center w-full border border-black" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+                {% if form.username.errors %}
+                    <p class="text-red-500 text-sm">{{ form.username.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label for="id_password" class="block text-black">Contraseña:</label>
+                <input class="h-8 rounded-md text-center w-full border border-black" type="password" name="password" autocomplete="current-password" required="" id="id_password">
+                {% if form.password.errors %}
+                    <p class="text-red-500 text-sm">{{ form.password.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-4">
+                <label for="id_password2" class="block text-black">Confirmar Contraseña:</label>
+                <input class="h-8 rounded-md text-center w-full border border-black" type="password" name="password2" required="" id="id_password2">
+                {% if form.password2.errors %}
+                    <p class="text-red-500 text-sm">{{ form.password2.errors|join:", " }}</p>
+                {% endif %}
+            </div>
+
+            <div class="flex justify-center">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
+                    Registrarse
+                </button>
+            </div>
+
         </form>
+
+        {% if error %}
+            <p class="text-red-500">{{ error }}</p>
+        {% endif %}
+    </div>
+
+    <script src='{% static 'lib/cute-alert/cute-alert.js' %}'></script>
+    <script>
+        params = new URLSearchParams(window.location.search)
+        if (params.get('register'))
+            cuteAlert({
+                type: "success",
+                title: "Usuario registrado.",
+                message: 'Por favor, inicie sesión.'
+            })
+    </script>
+
 </body>
 
 </html>

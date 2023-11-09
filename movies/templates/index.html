@@ -8,22 +8,40 @@
     <link rel="icon" type="image/x-icon" href="{% static 'movies/assets/img/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'lib/cute-alert/style.css' %}">
 
+    <!-- Estilos personalizados para las flechas -->
+    <style>
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #3182ce; /* Azul de Tailwind */
+            font-size: 48px; /* Tamaño más grande */
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 80px; /* Ancho más grande */
+            height: 80px; /* Alto más grande */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    </style>
 
 </head>
-<body class=" text-white" style="background-color:#182E6D;">
+<body class="text-white" style="background-color:#182E6D;">
     <!-- Navbar bg-blue-900-->
     {% include "header.html" %}
     <div style="max-width: 100vw;overflow-x: hidden">
-        <h1 class="text-4xl font-bold text-center mb-8 mt-8 " >Catálogo</h1>
+        <h1 class="text-4xl font-bold text-center mb-8 mt-8">Catálogo</h1>
         {% if request.user.is_authenticated and recommendations != None %}
-            <h2 class="text-2xl font-bold text-left mb-2 mt-8 ml-4">Recomandaciones para tí</h2>
+            <h2 class="text-2xl font-bold text-left mb-2 mt-8 ml-4">Recomendaciones para ti</h2>
 
-
-        <div class="swiper-container p-4 ">
-            <div class="swiper-button-next" style="position: absolute;top: 520px;"></div>
-            <div class="swiper-button-prev" style="position: absolute;top: 520px"></div>
-            <div class="swiper-wrapper">
+            <div class="swiper-container p-4 relative">
+                <div class="swiper-button-next absolute top-2/4 right-4 transform -translate-y-2/4"></div>
+                <div class="swiper-button-prev absolute top-2/4 left-4 transform -translate-y-2/4"></div>
+                <div class="swiper-wrapper">
                     {% for movie in recommendations %}
                         <div class="swiper-slide">
                             <div class="bg-white p-4 rounded-lg shadow-md">
@@ -39,40 +57,38 @@
                             </div>
                         </div>
                     {% endfor %}
+                </div>
             </div>
-        </div>
 
         {% endif %}
         <h2 class="text-2xl font-bold text-left mb-2 mt-8 ml-4">Catálogo completo</h2>
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script>
-
-  const mySwiper = new Swiper('.swiper-container', {
-    slidesPerView: 4,
-    spaceBetween: 14,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  });
-</script>
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script>
+            const mySwiper = new Swiper('.swiper-container', {
+                slidesPerView: 4,
+                spaceBetween: 14,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        </script>
     </div>
     <div class="grid grid-cols-1 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {% for movie in movies %}
-        <div class="bg-white p-4 rounded-lg shadow-md">
-            <a href="{% url 'movie_detail' movie.id %}">
-                <img class="w-full h-auto" src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="{{ movie.title }}">
-            </a>
-            <a class="text-black text-center mt-2 block" href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a>
-            <div class="flex flex-wrap justify-center mt-2 text-center" style="margin: 0 auto;">
-                {% for genero in movie.genres.all %}
-                    <span class="bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2">{{ genero.name }}</span>
-                {% endfor %}
+            <div class="bg-white p-4 rounded-lg shadow-md">
+                <a href="{% url 'movie_detail' movie.id %}">
+                    <img class="w-full h-auto" src="{% static 'movies/assets/img'|add:movie.poster_path %}" alt="{{ movie.title }}">
+                </a>
+                <a class="text-black text-center mt-2 block" href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a>
+                <div class="flex flex-wrap justify-center mt-2 text-center" style="margin: 0 auto;">
+                    {% for genero in movie.genres.all %}
+                        <span class="bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2">{{ genero.name }}</span>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
         {% endfor %}
     </div>
-
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src='{% static 'lib/cute-alert/cute-alert.js' %}'> </script>
@@ -80,6 +96,4 @@
 <footer class="bg-blue-900 text-white text-center py-4">
     <p>&copy; 2023 <a href="https://github.com/TheJorges/MyMovies" class="underline" target="_blank">GitHub</a>. Todos los derechos reservados.</p>
 </footer>
-
 </html>
-

@@ -15,14 +15,31 @@
                 <a class="background-icon inline-block"></a>
                 <a href="{% url 'index' %}" class="text-white text-4xl font-bold">Cinephile</a> <!-- Título de la página -->
             </div>
+            
             <ul class="flex space-x-8">
-                <li><a href="{% url 'index' %}" class="text-white">Inicio</a></li>
-                <li><a href="review" class="text-white">Reseñas</a></li>
+                <form method="get" action="/artwork_search/" class="" style="height: 54px;display: flex; align-items: center;">
+
+                    <label for="search" class="sr-only">Buscar</label>
+                    <div class="relative">
+                          <svg style="display:inline-block;" class="h-8 w-8 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="10" cy="10" r="7" />  <line x1="21" y1="21" x2="15" y2="15" /></svg>
+            
+                      <input id="search" name="search" class="inline-block rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900
+                                      ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2
+                                      focus:ring-inset focus:ring-indigo-600 
+                                      sm:text-sm sm:leading-6" placeholder="Buscar" type="search" 
+                                  {% if search_value != None %} 
+                                      value="{{ search_value|stringformat:'s' }}"
+                                  {% endif %} >
+            
+                    </div>
+                  </form>
+                <li style="display: flex;align-items:center;"><a href="{% url 'index' %}" class="text-white">Inicio</a></li>
+                <li style="display: flex;align-items:center;"><a href="review" class="text-white">Reseñas</a></li>
                 {% if request.user.is_authenticated %}
-                    <li><a href="{% url 'logout' %}" class="text-white">Cerrar sesión</a></li>
+                    <li style="display: flex;align-items:center;"><a href="{% url 'logout' %}" class="text-white">Cerrar sesión</a></li>
                 {% else %}
-                    <li><a href="{% url 'login' %}" class="text-white">Iniciar sesión</a></li>
-                    <li><a href="{% url 'register' %}" class="text-white">Registrarse</a></li>
+                    <li style="display: flex;align-items:center;"><a href="{% url 'login' %}" class="text-white">Iniciar sesión</a></li>
+                    <li style="display: flex;align-items:center;"><a href="{% url 'register' %}" class="text-white">Registrarse</a></li>
                 {% endif %}
 
             </ul>
