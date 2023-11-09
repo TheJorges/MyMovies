@@ -1,17 +1,25 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Cinephile - Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'movies/assets/img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'lib/cute-alert/style.css' %}">
 </head>
 <body>
-{% block content %}
-  <h2>Registro de Usuario</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registrarse</button>
-  </form>
-{% endblock %}
+    {% include "header.html" %}
+        <h2 class="text-2xl">Registro de Usuario</h2>
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Registrarse</button>
+          {% if error %}
+          <p style="color: red;">{{ error }}</p>
+          {% endif %}
+          <script src='{% static 'lib/cute-alert/cute-alert.js' %}'> </script>
+        </form>
 </body>
+
 </html>

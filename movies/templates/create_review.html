@@ -9,27 +9,24 @@
     <link rel="icon" type="image/x-icon" href="{% static 'movies/assets/img/favicon.ico' %}">
 </head>
 <body class="bg-gray-100">
-    <!-- Navbar -->
-    <nav class="bg-blue-500 p-4">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="{% url 'index' %}" class="text-white text-2xl font-bold">Cinephile</a> <!-- Título de la página -->
-            <ul class="flex space-x-4">
-                <li><a href="{% url 'index' %}" class="text-white">Inicio</a></li>
-                <li><a href="review" class="text-white">Reseñas</a></li>
-            </ul>
+    {% include "header.html" %}
+    <div class="container mx-auto p-6 flex">
+        <div class="mr-6">
+            <div class="max-w-20">
+                <img src="{% static 'movies/assets/img/'|add:movie.poster_path %}" alt="{{ movie.title }}" class="w-full h-auto">
+            </div>
         </div>
-    </nav>
-    <div class="container mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-4">Escribir una reseña para {{ movie.title }}</h1>
-        <form method="post">
-            {% csrf_token %}
-            <label for="rating" class="block mb-2">Calificación:</label>
-            <input type="number" name="rating" min="1" max="100" required class="w-full p-2 border rounded-md mb-4">
-            <label for="review_text" class="block mb-2">Reseña:</label>
-            <textarea name="review_text" required class="w-full p-2 border rounded-md mb-4"></textarea>
-            <button type="submit" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Enviar reseña</button>
-        </form>
+        <div class="flex-1">
+            <h1 class="text-2xl font-bold mb-4">Escribir una reseña para {{ movie.title }}</h1>
+            <form method="post">
+                {% csrf_token %}
+                <label for="rating" class="block mb-2">Calificación:</label>
+                <input type="number" name="rating" min="1" max="100" required class="w-full p-2 border rounded-md mb-4">
+                <label for="review_text" class="block mb-2">Reseña:</label>
+                <textarea name="review_text" required class="w-full p-2 border rounded-md mb-4"></textarea>
+                <button type="submit" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Enviar reseña</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
-
