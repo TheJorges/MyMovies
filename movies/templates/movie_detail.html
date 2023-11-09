@@ -96,13 +96,13 @@
     {% endfor %}
     <div class="reviews-container bg-gray-100 border border-gray-500 rounded p-4">
         <h2 class="text-2xl font-bold mt-2 mb-6">Reviews:</h2> <!-- Adjusted margin-top -->
-        <ul class="list-disc pl-4">
+        <ul class="pl-4">
             {% for review in reviews %}
                 <li>
-                    <div class="review-item">
+                    <div class="review-item card mb-6 p-4 rounded">
                         <span class="font-bold text-lg">{{ review.user.username }}</span>
-                        <button class="bg-blue-500 text-white font-bold px-2 py-1 rounded">{{ review.rating }}</button>
-                        <div class="flex items-center">
+                        <span class="bg-black text-white font-bold px-2 py-1 rounded">{{ review.rating }}</span>
+                        <div class="flex items-center mt-2">
                             <span class="text-gray-700">{{ review.review }}</span>
                         </div>
                     </div>
@@ -110,6 +110,8 @@
             {% endfor %}
         </ul>
     </div>
+    
+    
     
     {% if request.user.is_authenticated %}
   <div class="text-center mt-4">
@@ -137,5 +139,19 @@
             revenueElement.style.color = "red";
         }
     </script>
+    <style>
+        .border-highlight {
+            border: 2px solid #ff7e5f; /* Puedes ajustar el color según tus preferencias */
+            padding: 8px; /* Ajusta el espacio dentro del borde según sea necesario */
+        }
+        .card{
+            box-shadow: 0 2px 8px rgba(0,0,0,.1);
+            border: 1px solid rgba(var(--lightGrey),1);
+            background-color: #fff;
+        }
+        
+
+    </style>
+    
 </body>
 </html>
