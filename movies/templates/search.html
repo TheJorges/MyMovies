@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resultados de Búsqueda de Películas</title>
+</head>
+<body>
+    <h1>Resultados de Búsqueda de Películas</h1>
+
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {% for movie in artworks %}
+                <div class="swiper-slide">
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <a href="{% url 'movie_detail' movie.id %}">
+                            <img class="w-full h-auto" src="{% static 'movies/assets/img/'|add:movie.poster_path %}" alt="{{ movie.title }}">
+                        </a>
+                        <a class="text-black text-center mt-2 block" href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a>
+                        <div class="flex flex-wrap justify-center mt-2 text-center" style="margin: 0 auto;">
+                            {% for genre in movie.genres.all %}
+                                <span class="bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2">{{ genre.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+</body>
+</html>
