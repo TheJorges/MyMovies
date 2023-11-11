@@ -38,9 +38,7 @@
     <!-- Navbar -->
     {% include "header.html" %}
 
-    <div class="background"></div>
-    <div class="background-opacity"></div>
-    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg relative z-10">
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg relative z-10" style="padding: 40px">
        <h1 class="text-3xl font-bold text-center mb-6">{{ movie.title }}</h1>
         <div class="grid grid-cols-2 gap-4">
             <div>
@@ -98,12 +96,12 @@
         <h2 class="text-2xl font-bold mt-2 mb-6">Reviews:</h2> <!-- Adjusted margin-top -->
         <ul class="pl-4">
             {% for review in reviews %}
-                <li>
-                    <div class="review-item card mb-6 p-4 rounded">
-                        <span class="font-bold text-lg">{{ review.user.username }}</span>
-                        <span class="bg-black text-white font-bold px-2 py-1 rounded">{{ review.rating }}</span>
-                        <div class="flex items-center mt-2">
-                            <span class="text-gray-700">{{ review.review }}</span>
+                <li style="list-style: none">
+                    <div class="review-item" style="border: 1px solid black; border-radius: .3em; padding: 10px">
+                        <span class="font-bold text-lg" style="font-size: 16px">{{ review.user.username }}</span>
+                        <button class="bg-blue-500 text-white font-bold px-2 py-1 rounded" style="font-size: 16px">{{ review.rating }}</button>
+                        <div class="flex items-center">
+                            <span>    </span><span class="text-grauly-700" style="font-size: 16px">{{ review.review }}</span>
                         </div>
                     </div>
                 </li>
@@ -139,6 +137,7 @@
             revenueElement.style.color = "red";
         }
     </script>
+
     <style>
         .border-highlight {
             border: 2px solid #ff7e5f; /* Puedes ajustar el color según tus preferencias */
@@ -153,6 +152,7 @@
 
     </style>
     
+
 </body>
 
 </html>
