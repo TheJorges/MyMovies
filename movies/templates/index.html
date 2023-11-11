@@ -51,7 +51,7 @@
                                 <a class="text-black text-center mt-2 block" href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a>
                                 <div class="flex flex-wrap justify-center mt-2 text-center" style="margin: 0 auto;">
                                     {% for genero in movie.genres.all %}
-                                        <span class="bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2">{{ genero.name }}</span>
+                                    <span class="genero-span bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2 search-span">{{ genero.name }}</span>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -61,8 +61,24 @@
             </div>
 
         {% endif %}
+        <script>
+            // Obtén todos los elementos con la clase "search-span"
+            var searchSpans = document.querySelectorAll(".search-span");
+        
+            // Agrega un manejador de clic a cada elemento
+            searchSpans.forEach(function(span) {
+                span.addEventListener("click", function() {
+                    // Obtiene el texto del elemento clicado
+                    var searchText = span.textContent;
+        
+                    // Redirige a la página de resultados de búsqueda con el texto de búsqueda como parámetro
+                    window.location.href = "{% url 'movie_search' %}?search=" + searchText;
+                });
+            });
+        </script>
         <h2 class="text-2xl font-bold text-left mb-2 mt-8 ml-4">Catálogo completo</h2>
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
             const mySwiper = new Swiper('.swiper-container', {
                 slidesPerView: 4,
@@ -83,7 +99,7 @@
                 <a class="text-black text-center mt-2 block" href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a>
                 <div class="flex flex-wrap justify-center mt-2 text-center" style="margin: 0 auto;">
                     {% for genero in movie.genres.all %}
-                    <span class="genero-span bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2">{{ genero.name }}</span>
+                    <span class="genero-span bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2 search-span">{{ genero.name }}</span>
                 {% endfor %}
                 
                 </div>
@@ -91,9 +107,28 @@
         {% endfor %}
     </div>
 
+    <style>
+        .clickable-span {
+            cursor: pointer;
+        }
+    </style>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src='{% static 'lib/cute-alert/cute-alert.js' %}'> </script><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Obtén todos los elementos con la clase "search-span"
+        var searchSpans = document.querySelectorAll(".search-span");
     
+        // Agrega un manejador de clic a cada elemento
+        searchSpans.forEach(function(span) {
+            span.addEventListener("click", function() {
+                // Obtiene el texto del elemento clicado
+                var searchText = span.textContent;
+    
+                // Redirige a la página de resultados de búsqueda con el texto de búsqueda como parámetro
+                window.location.href = "{% url 'movie_search' %}?search=" + searchText;
+            });
+        });
+    </script>
 </body>
 <footer class="bg-blue-900 text-white text-center py-4">
     <style>
