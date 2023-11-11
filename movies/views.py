@@ -1,3 +1,5 @@
+
+from django.db.models import Q
 from django.contrib.postgres.search import SearchVector, SearchQuery
 from .models import Movie
 from django.contrib.auth.decorators import login_required
@@ -77,17 +79,23 @@ def make_recomendations(movie,user):##Esto es provisional, hay que cambiarlo
     return recommendations[:10]
 
 def search_results(request, search_value):
+    search_text = f'Resultados de Búsqueda de Películas para "{search_value}"' if search_value else "Todas las Películas"
+    print(search_value)
     if search_value:
-        artworks = Movie.objects.filter(title__icontains=search_value).distinct()
+        artworks = Movie.objects.filter(
+            Q(title__icontains=search_value) | Q(genres__name__icontains=search_value)
+        ).distinct()
     else:
         artworks = Movie.objects.all()
 
     if artworks:
-        return render(request, 'search.html', {'artworks': artworks, 'search_value': search_value})
+        for artwork in artworks:
+            print("Película encontrada:", artwork.title)
+        return render(request, 'search.html', {'artworks': artworks, 'search_value': search_value,'search_text': search_text})
     else:
         # Si no se encuentran resultados, muestra todas las películas
         all_artworks = Movie.objects.all()
-        return render(request, 'search.html', {'artworks': all_artworks, 'search_value': search_value})
+        return render(request, 'search.html', {'artworks': all_artworks, 'search_value': search_value,'search_text': search_text})
 
 def movie_search(request):
     if request.method == 'GET':
@@ -97,20 +105,9 @@ def movie_search(request):
     return render(request, 'search.html')
 
 def ft_artworks(value):
-    # Construye el vector de búsqueda
-    vector = (
-        SearchVector("title", weight="A")
-        + SearchVector("genres__name", weight="B")
-    )
+    # Realiza la búsqueda en título y género utilizando Q
+    artworks = Movie.objects.filter(
+        Q(genres__name__icontains=value) | Q(title__icontains=value) 
+    ).distinct()
 
-    # Realiza la búsqueda
-    query = SearchQuery(value, search_type="websearch")
-    artworks = Movie.objects.annotate(
-        search=vector,
-        rank=SearchRank(vector, query),
-    ).filter(search=query)
-
-    print("Query:", query)  # Agregamos una línea para imprimir la consulta
-    print("Artworks Count:", artworks.count())  # Agregamos una línea para imprimir la cantidad de resultados
-
-    return artworks.order_by("-rank")
+    return artworks

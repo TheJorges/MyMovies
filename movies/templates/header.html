@@ -27,12 +27,13 @@
                                       ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2
                                       focus:ring-inset focus:ring-indigo-600 
                                       sm:text-sm sm:leading-6" placeholder="Buscar" type="search" 
-                                >
+                                  {% if search_value != None %} 
+                                      value="{{ search_value|stringformat:'s' }}"
+                                  {% endif %} >
             
                     </div>
                   </form>
                 <li style="display: flex;align-items:center;"><a href="{% url 'index' %}" class="text-white">Inicio</a></li>
-                <li style="display: flex;align-items:center;"><a href="review" class="text-white">Reseñas</a></li>
                 {% if request.user.is_authenticated %}
                     <li style="display: flex;align-items:center;"><a href="{% url 'logout' %}" class="text-white">Cerrar sesión</a></li>
                 {% else %}

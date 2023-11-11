@@ -83,15 +83,17 @@
                 <a class="text-black text-center mt-2 block" href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a>
                 <div class="flex flex-wrap justify-center mt-2 text-center" style="margin: 0 auto;">
                     {% for genero in movie.genres.all %}
-                        <span class="bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2">{{ genero.name }}</span>
-                    {% endfor %}
+                    <span class="genero-span bg-gray-300 text-gray-700 text-sm rounded-full py-1 px-2 mr-2 mb-2">{{ genero.name }}</span>
+                {% endfor %}
+                
                 </div>
             </div>
         {% endfor %}
     </div>
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src='{% static 'lib/cute-alert/cute-alert.js' %}'> </script>
+    <script src='{% static 'lib/cute-alert/cute-alert.js' %}'> </script><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 </body>
 <footer class="bg-blue-900 text-white text-center py-4">
     <style>

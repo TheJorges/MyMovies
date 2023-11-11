@@ -16,8 +16,8 @@
 
     <h2 class="mx-auto text-center mt-8 text-2xl text-white">Registro de usuario</h2>
     <div class="mt-10 login-div w-96 flex-col justify-center mx-auto">
-
-        <form method="post" class="bg-yellow-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md mx-auto">
+        
+        <form method="post" class="bg-yellow-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md mx-auto"style="border-radius: 2em;">
             {% csrf_token %}
 
             <div class="mb-4">
@@ -56,7 +56,22 @@
             <p class="text-red-500">{{ error }}</p>
         {% endif %}
     </div>
-
+    <footer class="bg-blue-900 text-white text-center py-4" style="position: absolute; bottom: 0; width: 100%;">
+        <style>
+            .background-icon {
+                background-image: url('{% static 'movies/assets/img/popcorn.png' %}');
+                width: 50px;
+                height: 50px;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+        </style>
+        <div>
+            <a class="background-icon inline-block"></a>
+            <a href="{% url 'index' %}" class="text-white text-4xl font-bold">Cinephile</a> <!-- Título de la página -->
+        </div>
+        <p>&copy; 2023 <a href="https://github.com/TheJorges/MyMovies" class="underline" target="_blank">GitHub</a>. Todos los derechos reservados.</p>
+    </footer>
     <script src='{% static 'lib/cute-alert/cute-alert.js' %}'></script>
     <script>
         params = new URLSearchParams(window.location.search)
