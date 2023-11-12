@@ -10,9 +10,9 @@
 </head>
 <body class="bg-gray-100">
     {% include "header.html" %}
-    <div class="container mx-auto p-6 flex">
+    <div class="container mx-auto p-6 flex items-center" style="width: 60%;">
         <div class="mr-6">
-            <div class="max-w-20">
+            <div class="" style="max-width: 300px;">
                 <img src="{% static 'movies/assets/img/'|add:movie.poster_path %}" alt="{{ movie.title }}" class="w-full h-auto">
             </div>
         </div>
@@ -28,23 +28,8 @@
             </form>
         </div>
     </div>
+    {% include "footer.html" %}
 </body>
 
-<footer class="bg-blue-900 text-white text-center py-4">
-    <style>
-        .background-icon{
-            background-image: url('{% static 'movies/assets/img/popcorn.png' %}');
-            width: 50px;
-            height: 50px;
-            background-size: contain;
-            background-repeat: no-repeat;
-    
-        }
-    </style>
-     <div>
-        <a class="background-icon inline-block"></a>
-        <a href="{% url 'index' %}" class="text-white text-4xl font-bold">Cinephile</a> <!-- Título de la página -->
-    </div>
-    <p>&copy; 2023 <a href="https://github.com/TheJorges/MyMovies" class="underline" target="_blank">GitHub</a>. Todos los derechos reservados.</p>
-</footer>
+
 </html>

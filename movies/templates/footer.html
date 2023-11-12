@@ -1,0 +1,18 @@
+{% load static %}
+<footer class=" text-white text-center py-4" style="position: absolute;bottom: 0; width: 100%;background-color: #11224f;">
+    <style>
+        .background-icon{
+            background-image: url('{% static 'movies/assets/img/popcorn.png' %}');
+            width: 50px;
+            height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+    
+        }
+    </style>
+     <div >
+        <a class="background-icon inline-block"></a>
+        <a href="{% url 'index' %}" class="text-white text-4xl font-bold">Cinephile</a> <!-- Título de la página -->
+    </div>
+    <p>&copy; 2023 <a href="https://github.com/TheJorges/MyMovies" class="underline" target="_blank">GitHub</a>. Todos los derechos reservados.</p>
+</footer>

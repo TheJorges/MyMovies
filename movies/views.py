@@ -1,3 +1,4 @@
+import random
 
 from django.db.models import Q
 from django.contrib.postgres.search import SearchVector, SearchQuery
@@ -44,11 +45,13 @@ def create_review(request, movie_id):
         user = User.objects.get(username=request.user.username)
         review = MovieReview(movie=movie, user=user, rating=rating, review=review_text)
         review.save()
-        recomendations = make_recomendations(movie,user)
-        print("recomendations: " + str(len(recomendations)))
-        for recomendation in recomendations:
-            r= Recomendations(user=user,movie= recomendation)
-            r.save()
+        recomendations= None
+        if int(review.rating) > 80:
+            recomendations = make_recomendations(movie,user)
+            Recomendations.objects.filter(user=request.user).delete()
+            for recomendation in recomendations:
+                r= Recomendations(user=user,movie= recomendation)
+                r.save()
 
 
         return redirect('movie_detail', movie_id=movie_id)
@@ -66,15 +69,33 @@ def make_recomendations(movie,user):##Esto es provisional, hay que cambiarlo
     # Obten los géneros de la película
     genres = movie.genres.all()
 
+    #Obtén los actores de la película
+    main_actor= movie.credits.filter(movie=movie)[0]
+
+
+
     # Filtra las películas que comparten al menos un género
-    movies = Movie.objects.filter(genres__in=genres).exclude(id=movie.id).distinct()
+    movies=Movie.objects.filter(credits__name__contains=main_actor.name)
+    gen_movies = Movie.objects.filter(genres__in=genres).exclude(id=movie.id).distinct()
+
 
     # Obten una lista de películas recomendadas que el usuario aún no ha visto
-    recommendations = []
-    for m in movies:
-        if not Recomendations.objects.filter(user=user, movie=m).exists():
-            recommendations.append(m)
+    recommendations1 = []
+    i=0
 
+    for m in movies:
+        if i<4 and m in gen_movies and not Recomendations.objects.filter(user=user,movie=m).exists():
+            recommendations1.append(m)
+            i+=1
+    random.shuffle(recommendations1)
+
+    recommendations2= []
+    for m in gen_movies:
+        if not Recomendations.objects.filter(user=user, movie=m).exists() and not recommendations1.count(m)>1:
+            recommendations2.append(m)
+
+    random.shuffle(recommendations2)
+    recommendations= recommendations2 + recommendations1
     # Selecciona un número limitado de recomendaciones (por ejemplo, las primeras 10)
     return recommendations[:10]
 
